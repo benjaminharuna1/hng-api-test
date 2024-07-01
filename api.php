@@ -3,7 +3,7 @@
     
     // Get Client Name
     $visitor_name=isset($_GET['visitor_name'])? 
-    htmlspecialchars($_GET['visitor_name']):'Visitor';
+    htmlspecialchars($_GET['visitor_name']):'Mark';
     
     // Get client ip
     function getClientIp() {
