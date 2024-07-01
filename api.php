@@ -1,13 +1,35 @@
-<!-- By Benjamin Haruna Bala -->
 <?php
     header('Content-Type: application/json');
     
     // Get Client Name
     $visitor_name=isset($_GET['visitor_name'])? 
-    htmlspecialchars($_GET['visitor_name']):'Mark';
+    htmlspecialchars($_GET['visitor_name']):'Visitor';
     
     // Get client ip
-    $client_ip = $_SERVER['REMOTE_ADDR'];
+    function getClientIp() {
+        $ipaddress = '';
+        if (isset($_SERVER['HTTP_CLIENT_IP']) && !empty($_SERVER['HTTP_CLIENT_IP'])) {
+            $ipaddress = $_SERVER['HTTP_CLIENT_IP'];
+        } elseif (isset($_SERVER['HTTP_X_FORWARDED_FOR']) && !empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            $ipaddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        } elseif (isset($_SERVER['HTTP_X_FORWARDED']) && !empty($_SERVER['HTTP_X_FORWARDED'])) {
+            $ipaddress = $_SERVER['HTTP_X_FORWARDED'];
+        } elseif (isset($_SERVER['HTTP_FORWARDED_FOR']) && !empty($_SERVER['HTTP_FORWARDED_FOR'])) {
+            $ipaddress = $_SERVER['HTTP_FORWARDED_FOR'];
+        } elseif (isset($_SERVER['HTTP_FORWARDED']) && !empty($_SERVER['HTTP_FORWARDED'])) {
+            $ipaddress = $_SERVER['HTTP_FORWARDED'];
+        } elseif (isset($_SERVER['REMOTE_ADDR']) && !empty($_SERVER['REMOTE_ADDR'])) {
+            $ipaddress = $_SERVER['REMOTE_ADDR'];
+        } else {
+            $ipaddress = 'UNKNOWN';
+        }
+        
+        // In the event there are multiple IPs, take the first one
+        $ipaddress = explode(',', $ipaddress)[0];
+        return trim($ipaddress);
+    }
+    
+    $client_ip = getClientIp();
 
     // Get location of the requester
     $ipinfo_token = 'fc501babab5244'; //openip api key
