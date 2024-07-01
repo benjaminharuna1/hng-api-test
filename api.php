@@ -5,7 +5,7 @@
     $visitor_name=isset($_GET['visitor_name'])? 
     htmlspecialchars($_GET['visitor_name']):'Mark';
     
-    // Get client ip
+    // to get client ip
     function getClientIp() {
         $ipaddress = '';
         if (isset($_SERVER['HTTP_CLIENT_IP']) && !empty($_SERVER['HTTP_CLIENT_IP'])) {
@@ -31,8 +31,8 @@
     
     $client_ip = getClientIp();
 
-    // Get location of the requester
-    $ipinfo_token = 'fc501babab5244'; //openip api key
+    // to get location of the requester
+    $ipinfo_token = 'fc501babab5244'; //my openip api key
     $ipinfo_url = "http://ipinfo.io/{$client_ip}/json?token={$ipinfo_token}";
 
     $location_data = file_get_contents($ipinfo_url);
@@ -44,7 +44,7 @@
 
 
     // Get Cleint Weather based on his location
-    $weather_api_key = "6db68c32ead55d4834cefefba5f19120"; //openweathermap api key
+    $weather_api_key = "6db68c32ead55d4834cefefba5f19120"; //my openweathermap api key
     $weather_url = "http://api.openweathermap.org/data/2.5/weather?lat={$latitude}&lon={$longitude}&units=metric&appid={$weather_api_key}";
 
     $weather_data = file_get_contents($weather_url);
